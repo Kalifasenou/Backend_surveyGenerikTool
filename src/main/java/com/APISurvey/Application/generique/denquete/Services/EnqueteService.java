@@ -16,10 +16,10 @@ public interface EnqueteService {
     Enquete ModifierEnquete(Long id, Enquete enquete);
 
 
-    Enquete SupprimerEnquete(Integer id, Enquete enquete);
+    String SupprimerEnquete(Long id, Enquete enquete);
 
 
-    String AfficherUneEnquete(Long id);
+    Enquete AfficherUneEnquete(Long id);
 
     List<Enquete> AfficherTousEnquete();
 
