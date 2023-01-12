@@ -1,16 +1,21 @@
-package com.APISurvey.Application.generique.denquete.Services;
+package com.APISurvey.Application.generique.denquete.ServiceImplementation;
 
 import com.APISurvey.Application.generique.denquete.Modeles.Enquete;
 import com.APISurvey.Application.generique.denquete.Modeles.Formulaire;
 import com.APISurvey.Application.generique.denquete.Modeles.Question;
 import com.APISurvey.Application.generique.denquete.Modeles.Utilisateur;
 import com.APISurvey.Application.generique.denquete.Repositories.EnqueteRepos;
+import com.APISurvey.Application.generique.denquete.Services.EnqueteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class EnqueteServiceImpl implements EnqueteService{
+public class EnqueteServiceImpl implements EnqueteService {
 
     @Autowired
     public EnqueteRepos enqueteRepos;
@@ -34,10 +39,11 @@ public class EnqueteServiceImpl implements EnqueteService{
     @Override
     public Enquete ModifierEnquete(Long id, Enquete enquete) {
         return enqueteRepos.findById(id).map(enquete1 -> {
-            //enquete1.setLibelle;
-            enquete1.setFormulaire((Formulaire) enquete1.getFormulaire());
-            enquete1.setQuestion((Question) enquete1.getQuestion());
-            enquete1.setUtilisateur((Utilisateur) enquete1.getUtilisateur());
+            enquete1.setLibelle(enquete1.getLibelle());
+            enquete1.setDatedebut(enquete1.getDatedebut());
+            enquete1.setDatefin(enquete1.getDatefin());
+            enquete1.setStatut(enquete1.getStatut());
+            enquete1.setFormulaires(enquete1.getFormulaires());
             enquete1.setResultat(enquete1.getResultat());
 
             return enqueteRepos.save(enquete1);
@@ -84,9 +90,21 @@ public class EnqueteServiceImpl implements EnqueteService{
     /**
      * @return
      */
+
+    @Scheduled(fixedRate = 86400000)
     @Override
-    public Enquete MarquerCommeTermine() {
-        return null;
+    public String MarquerCommeTermine() {
+        LocalDate datedujour = LocalDate.now();
+        List<Enquete> ConsidererTerminer = new ArrayList<>();
+        ConsidererTerminer = AfficherTousEnquete();
+        for (Enquete eq: ConsidererTerminer){
+            long ecart = ChronoUnit.DAYS.between(eq.getDatefin(),datedujour);
+            if (ecart == 0) {
+                eq.setStatut("Terminer");
+                ModifierEnquete(eq.getId(), eq);
+            }
+        }
+        return "Enquête terminer avec succés";
     }
 
     /**

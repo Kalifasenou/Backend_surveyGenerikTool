@@ -27,7 +27,7 @@ public interface EnqueteService {
     Enquete EnregisterEnquete();
 
 
-    Enquete MarquerCommeTermine();
+    String MarquerCommeTermine();
 
 
     Enquete ImporterEnquete();

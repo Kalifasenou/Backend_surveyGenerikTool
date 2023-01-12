@@ -1,11 +1,21 @@
 package com.APISurvey.Application.generique.denquete.Modeles;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Enquete {
 
 
@@ -23,7 +33,7 @@ public class Enquete {
     private String datedebut;
     
 
-    private String datefin;
+    private LocalDate datefin;
     
 
     private String statut;
@@ -33,9 +43,20 @@ public class Enquete {
     @OneToOne
     @JoinColumn(name = "resultat_id")
     private Resultat resultat;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "enquete_forms",
+            joinColumns = @JoinColumn(name = "forms_id"),
+            inverseJoinColumns = @JoinColumn(name = "enquete_id"))
+    Set<Formulaire> formulaires;
+
+
+
     
 
-    private Set<Question> question;
+/*    private Set<Question> question;
     
 
     private Set<Formulaire> formulaire;
@@ -152,5 +173,5 @@ public class Enquete {
         this.question = (Set<Question>) question;
         return (Set<Question>) question;
     }
-    
+    */
 }
