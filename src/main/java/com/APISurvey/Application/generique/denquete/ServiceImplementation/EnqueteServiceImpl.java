@@ -1,13 +1,11 @@
 package com.APISurvey.Application.generique.denquete.ServiceImplementation;
 
 import com.APISurvey.Application.generique.denquete.Modeles.Enquete;
-import com.APISurvey.Application.generique.denquete.Modeles.Formulaire;
-import com.APISurvey.Application.generique.denquete.Modeles.Question;
-import com.APISurvey.Application.generique.denquete.Modeles.Utilisateur;
 import com.APISurvey.Application.generique.denquete.Repositories.EnqueteRepos;
 import com.APISurvey.Application.generique.denquete.Services.EnqueteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -15,11 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@Service
 public class EnqueteServiceImpl implements EnqueteService {
 
     @Autowired
-    public EnqueteRepos enqueteRepos;
+    final private EnqueteRepos enqueteRepos;
 
+@Autowired
+    public EnqueteServiceImpl(EnqueteRepos enqueteRepos) {
+        this.enqueteRepos = enqueteRepos;
+    }
 
 
     /**
