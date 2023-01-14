@@ -1,12 +1,20 @@
 package com.APISurvey.Application.generique.denquete.Modeles;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Reponse {
 
     @Id
@@ -15,14 +23,16 @@ public class Reponse {
 
     private String libelle;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            }
-            //mappedBy = "question"
-            )
-    @JsonIgnore
-    private final Set<Question> tutorials = new HashSet<>();
+    private Boolean etatreponse=false;
+
+
+    @OneToOne( targetEntity=Typedonnee.class, fetch = FetchType.LAZY)
+    private Typedonnee typesdonnee;
+
+    //@ManyToOne(fetch = FetchType.LAZY,
+           // cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+   // @JsonIgnore
+    @OneToOne
+    private Question questions;
 
 }

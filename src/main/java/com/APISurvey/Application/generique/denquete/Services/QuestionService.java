@@ -13,7 +13,7 @@ public interface QuestionService {
     Question ModifierQuestion(Integer id, Question question);
 
 
-    Question SupprimerQuestion(Integer id);
+    String SupprimerQuestion(Integer id);
 
 
     Question AfficherQuestion(Integer id);

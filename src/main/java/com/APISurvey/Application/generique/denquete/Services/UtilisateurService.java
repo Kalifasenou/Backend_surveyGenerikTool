@@ -21,4 +21,6 @@ public interface UtilisateurService {
 
     List<Utilisateur> AfficherAllUtilisateur();
 
+    String ModifierMotdepasse(Integer id);
+
 }

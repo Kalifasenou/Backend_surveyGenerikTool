@@ -13,12 +13,12 @@ public interface ResultatService {
     Resultat AfficherResultat(Integer id);
 
 
-    List<Resultat> AfficherResultat();
+    List<Resultat> AfficherAllResultat();
 
-    Resultat ModifierResultat(Integer integer, Resultat resultat);
+    //Resultat ModifierResultat(Integer integer, Resultat resultat);
 
 
-    Resultat SupprimerResultat(Integer id);
+    void SupprimerResultat(Integer id);
 
 
     Resultat PublierResultat();

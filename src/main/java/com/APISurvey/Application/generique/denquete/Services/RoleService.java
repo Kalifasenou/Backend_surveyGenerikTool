@@ -14,11 +14,11 @@ public interface RoleService {
     Role ModifierRole(Integer id, Role role);
 
 
-    Role SupprimerRole(Integer id) ;
+    String SupprimerRole(Integer id) ;
 
     Role AfficherRole(Integer id);
 
 
-    List<Role> AfficherRole();
+    List<Role> AfficherAllRole();
 
 }

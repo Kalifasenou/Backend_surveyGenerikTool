@@ -1,9 +1,18 @@
 package com.APISurvey.Application.generique.denquete.Modeles;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Presentation {
     
     @Id
@@ -20,67 +29,14 @@ public class Presentation {
     private String datepublication;
     
 
+    @OneToOne(mappedBy = "presentation")
+    @JoinColumn(name = "resultat_id")
+    private Resultat resultats;
+
+
     @OneToOne
     @JoinColumn(name = "resultat_id")
-    private Resultat resultat;
+    private Sondage sondages;
 
-
-
-    private Long getId() {
-        return this.id;
-    }
-    
-
-    private Long setId(Long id) {
-        this.id = id;
-        return id;
-    }
-    
-    
-
-    private String getLibelle() {
-        return this.libelle;
-    }
-    
-
-    private String setLibelle(String libelle) {
-        this.libelle = libelle;
-        return libelle;
-    }
-    
-    
-
-    private boolean getEtatpresentation() {
-        return this.etatpresentation;
-    }
-    
-
-    private boolean setEtatpresentation(Boolean etatpresentation) {
-        this.etatpresentation = etatpresentation;
-        return etatpresentation;
-    }
-    
-    
-
-    private String getDatepublication() {
-        return this.datepublication;
-    }
-    
-
-    private String setDatepublication(String datepublication) {
-        this.datepublication = datepublication;
-        return datepublication;
-    }
-
-
-    public Resultat getResultat() {
-        return this.resultat;
-    }
-    
-
-    public Resultat setResultat(Resultat resultat) {
-        this.resultat = resultat;
-        return resultat;
-    }
 
 }

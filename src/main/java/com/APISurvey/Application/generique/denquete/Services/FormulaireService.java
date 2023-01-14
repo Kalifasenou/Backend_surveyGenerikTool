@@ -9,7 +9,7 @@ public interface FormulaireService {
     Formulaire CreerForm(Formulaire formulaire);
 
 
-    Formulaire ModifierForm(Integer Id, Formulaire formulaire);
+    Formulaire ModifierForm(Integer id, Formulaire formulaire);
 
 
     Formulaire SupprimerForm(Integer id);
