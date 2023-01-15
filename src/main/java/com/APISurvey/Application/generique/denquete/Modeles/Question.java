@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
 
 @Entity
 @AllArgsConstructor
@@ -30,7 +29,7 @@ public class Question {
     private Sondage sondage;
     
     @ManyToOne
-    private Utilisateur utilisateur;
+    private User user;
     
 
     @ManyToOne

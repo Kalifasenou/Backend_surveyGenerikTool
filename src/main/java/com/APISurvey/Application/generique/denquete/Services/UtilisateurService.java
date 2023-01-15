@@ -1,25 +1,25 @@
 package com.APISurvey.Application.generique.denquete.Services;
 
-import com.APISurvey.Application.generique.denquete.Modeles.Utilisateur;
+import com.APISurvey.Application.generique.denquete.Modeles.User;
 
 import java.util.List;
 
 public interface UtilisateurService {
 
 
-    Utilisateur CreerUtilisateur(Utilisateur utilisateur);
+    User CreerUtilisateur(User user);
 
 
-    Utilisateur ModifierUtilisateur(Integer id, Utilisateur utilisateur);
+    User ModifierUtilisateur(Integer id, User user);
 
 
-    Utilisateur SupprimerUtilisateur(Integer id);
+    User SupprimerUtilisateur(Integer id);
 
 
-    Utilisateur AfficherUtilisateur(Integer id);
+    User AfficherUtilisateur(Integer id);
 
 
-    List<Utilisateur> AfficherAllUtilisateur();
+    List<User> AfficherAllUtilisateur();
 
     String ModifierMotdepasse(Integer id);
 

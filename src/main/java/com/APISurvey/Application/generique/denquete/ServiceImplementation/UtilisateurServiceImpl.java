@@ -1,7 +1,7 @@
 package com.APISurvey.Application.generique.denquete.ServiceImplementation;
 
-import com.APISurvey.Application.generique.denquete.Modeles.Utilisateur;
-import com.APISurvey.Application.generique.denquete.Repositories.UtilisateurRepos;
+import com.APISurvey.Application.generique.denquete.Modeles.User;
+import com.APISurvey.Application.generique.denquete.Repositories.UserRepository;
 import com.APISurvey.Application.generique.denquete.Services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,31 +12,31 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Autowired
-    UtilisateurRepos utilisateurRepos;
+    UserRepository userRepository;
 
     /**
-     * @param utilisateur
+     * @param user
      * @return
      */
     @Override
-    public Utilisateur CreerUtilisateur(Utilisateur utilisateur) {
-        return utilisateurRepos.save(utilisateur);
+    public User CreerUtilisateur(User user) {
+        return userRepository.save(user);
     }
 
     /**
      * @param id
-     * @param utilisateur
+     * @param user
      * @return
      */
     @Override
-    public Utilisateur ModifierUtilisateur(Integer id, Utilisateur utilisateur) {
-        return utilisateurRepos.findById(id).map(utilisateur1 -> {
+    public User ModifierUtilisateur(Integer id, User user) {
+        return userRepository.findById(id).map(utilisateur1 -> {
             utilisateur1.setNom(utilisateur1.getNom());
             utilisateur1.setPrenom(utilisateur1.getPrenom());
-            utilisateur1.setMail(utilisateur1.getMail());
-            utilisateur1.setPseudo(utilisateur1.getPseudo());
-            return utilisateurRepos.save(utilisateur1);
-        }).orElseThrow(() -> new RuntimeException("Utilisateur introuvable !"));
+            utilisateur1.setEmail(utilisateur1.getEmail());
+            //utilisateur1.setPseudo(utilisateur1.getPseudo());
+            return userRepository.save(utilisateur1);
+        }).orElseThrow(() -> new RuntimeException("User introuvable !"));
     }
 
     /**
@@ -44,11 +44,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      * @return
      */
     @Override
-    public Utilisateur SupprimerUtilisateur(Integer id) {
-        return utilisateurRepos.findById(id).map(utilisateur -> {
+    public User SupprimerUtilisateur(Integer id) {
+        return userRepository.findById(id).map(utilisateur -> {
             utilisateur.setEtatuser(true);
-            return utilisateurRepos.save(utilisateur);
-        }).orElseThrow(() -> new RuntimeException("Utilisateur introuvable !"));
+            return userRepository.save(utilisateur);
+        }).orElseThrow(() -> new RuntimeException("User introuvable !"));
     }
 
     /**
@@ -56,16 +56,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      * @return
      */
     @Override
-    public Utilisateur AfficherUtilisateur(Integer id) {
-        return utilisateurRepos.findById(id).get();
+    public User AfficherUtilisateur(Integer id) {
+        return userRepository.findById(id).get();
     }
 
     /**
      * @return
      */
     @Override
-    public List<Utilisateur> AfficherAllUtilisateur() {
-        return utilisateurRepos.findAll();
+    public List<User> AfficherAllUtilisateur() {
+        return userRepository.findAll();
     }
 
     /**
@@ -74,9 +74,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
      */
     @Override
     public String ModifierMotdepasse(Integer id) {
-        return utilisateurRepos.findById(id).map(utilisateur -> {
-            utilisateur.setMotdepasse(utilisateur.getMotdepasse());
-            utilisateurRepos.save(utilisateur);
+        return userRepository.findById(id).map(utilisateur -> {
+            utilisateur.setPassword(utilisateur.getPassword());
+            userRepository.save(utilisateur);
             return "Mot de passe modifier avec succés !";
         }).orElseThrow(() -> new RuntimeException("Impossible de modifier ce mot de passe !"));
     }

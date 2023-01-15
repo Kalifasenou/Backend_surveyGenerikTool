@@ -47,7 +47,7 @@ public class Sondage {
     @JoinTable(  name = "sondage_users",
             joinColumns = @JoinColumn(name = "sondage_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Utilisateur> utilisateur = new ArrayList<>();
+    private List<User> user = new ArrayList<>();
 
 
 

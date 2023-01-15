@@ -1,7 +1,7 @@
 package com.APISurvey.Application.generique.denquete.ServiceImplementation;
 
 import com.APISurvey.Application.generique.denquete.Modeles.Role;
-import com.APISurvey.Application.generique.denquete.Repositories.RoleRepos;
+import com.APISurvey.Application.generique.denquete.Repositories.RoleRepository;
 import com.APISurvey.Application.generique.denquete.Services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Autowired
-    RoleRepos roleRepos;
+    RoleRepository roleRepository;
 
     /**
      * @param role
@@ -21,8 +21,9 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role CreerRole(Role role) {
-        return roleRepos.save(role);
+        return roleRepository.save(role);
     }
+
 
     /**
      * @param id
@@ -30,10 +31,10 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public Role ModifierRole(Integer id, Role role) {
-        return roleRepos.findById(id).map(role1 -> {
-            role1.setLibelle(role1.getLibelle());
-            return roleRepos.save(role1);
+    public Role ModifierRole(Long id, Role role) {
+        return roleRepository.findById(id).map(role1 -> {
+            role1.setName(role1.getName());
+            return roleRepository.save(role1);
         }).orElseThrow(() -> new RuntimeException("Rôle non trouver"));
     }
 
@@ -42,9 +43,9 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public String SupprimerRole(Integer id) {
-        return roleRepos.findById(id).map(role -> {
-            role.setEtatrole(true);
+    public String SupprimerRole(Long id) {
+        return roleRepository.findById(id).map(role -> {
+            //role.setEtatrole(true);
             return "Rôle supprimer avec succés !";
         }).orElseThrow(() -> new RuntimeException("Rôle introuvable"));
     }
@@ -54,8 +55,8 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public Role AfficherRole(Integer id) {
-        return roleRepos.findById(id).get();
+    public Role AfficherRole(Long id) {
+        return roleRepository.findById(id).get();
     }
 
     /**
@@ -63,6 +64,6 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public List<Role> AfficherAllRole() {
-        return roleRepos.findAll();
+        return roleRepository.findAll();
     }
 }

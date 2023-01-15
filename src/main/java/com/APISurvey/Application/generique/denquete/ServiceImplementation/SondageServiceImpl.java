@@ -54,7 +54,7 @@ public class SondageServiceImpl implements SondageService {
             sondage1.setDatedebut(sondage1.getDatedebut());
             sondage1.setDatefin(sondage1.getDatefin());
             sondage1.setQuestion((Question) sondage1.getQuestion());
-            sondage1.setUtilisateur(sondage1.getUtilisateur());
+            sondage1.setUser(sondage1.getUser());
             return sondageRepos.save(sondage1);
         }).orElseThrow(() -> new RuntimeException("Impossible de modifier ce sondage !"));
     }

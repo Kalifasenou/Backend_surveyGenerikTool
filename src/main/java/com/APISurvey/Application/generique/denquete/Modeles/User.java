@@ -18,34 +18,34 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Utilisateur {
+public class User {
     
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
 
     private String nom;
     
 
     private String prenom;
+
     
 
-    private String pseudo;
-    
+    private String email;
 
-    private String mail;
-    
-
-    private String motdepasse;
     
 
     private boolean etatuser = false;
+
+    private String username;
+
+    private String password;
     
     
 
-    @OneToMany(mappedBy = "utilisateur")
+    @OneToMany(mappedBy = "user")
    // @JoinColumn(name = "question_id")
     private List<Question> question = new ArrayList<>();
 
@@ -56,16 +56,37 @@ public class Utilisateur {
     private List<Sondage> sondage = new ArrayList<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "utilisateur")
-    private Set<Role> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Role> role = new HashSet<>();
 
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(  name = "user_roles",
+    @JoinTable(  name = "user_enquetes",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "enquete_id"))
     private List<Enquete> enquete = new ArrayList<>();
 
+    public User(String username, String email, String password, String prenom, String nom) {
+        this.nom=nom;
+        this.prenom=prenom;
+        this.username=username;
+        this.email = email;
+        this.password=password;
 
+    }
+
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
