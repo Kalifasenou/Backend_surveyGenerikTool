@@ -1,6 +1,7 @@
 package com.APISurvey.Application.generique.denquete.ServiceImplementation;
 
 import com.APISurvey.Application.generique.denquete.Modeles.Question;
+import com.APISurvey.Application.generique.denquete.Modeles.Typedonnee;
 import com.APISurvey.Application.generique.denquete.Repositories.QuestionRepos;
 import com.APISurvey.Application.generique.denquete.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,40 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public List<Question> AfficherAllQuestion() {
         return questionRepos.findAll();
+    }
+
+
+    @Override
+    public Question CreerQuestionNombre(String libelle) {
+        Question question = new Question();
+        question.setLibelle(libelle);
+        question.setType("Chiffre");
+        return questionRepos.save(question);
+    }
+
+    @Override
+    public Question CreerQuestionText(String libelle) {
+        Question question = new Question();
+        question.setLibelle(libelle);
+        question.setType("Text");
+        return questionRepos.save(question);
+    }
+
+    @Override
+    public Question CreerQuestionMultipleChoice(String libelle, List<String> options) {
+        Question question = new Question();
+        question.setLibelle(libelle);
+        question.setType("Multiple Choice");
+        question.setOptions(options);
+        return questionRepos.save(question);
+    }
+
+    @Override
+    public Question CreerQuestionOneChoice(String libelle, List<String> options) {
+        Question question = new Question();
+        question.setLibelle(libelle);
+        question.setType("One Choice");
+        question.setOptions(options);
+        return questionRepos.save(question);
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -45,4 +46,10 @@ public class Question {
     private Reponse reponses ;
 
 
+    public void setType(String type) {
+    }
+
+    public void setOptions(List<String> options) {
+
+    }
 }
