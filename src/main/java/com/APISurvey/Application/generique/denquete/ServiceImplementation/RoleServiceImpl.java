@@ -66,4 +66,42 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> AfficherAllRole() {
         return roleRepository.findAll();
     }
+
+
+
+
+
+/*
+
+
+        @Override
+        public Role CreerRole(Role role) {
+            return roleRepository.save(role);
+        }
+
+        @Override
+        public Role ModifierRole(Long id, Role role) {
+            Role roleToUpdate = roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Rôle non trouvé"));
+            roleToUpdate.setName(role.getName());
+            return roleRepository.save(roleToUpdate);
+        }
+
+        @Override
+        public boolean SupprimerRole(Long id) {
+            Role roleToDelete = roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Rôle introuvable"));
+            roleRepository.delete(roleToDelete);
+            return true;
+        }
+
+        @Override
+        public Role AfficherRole(Long id) {
+            return roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Rôle introuvable"));
+        }
+
+        @Override
+        public List<Role> AfficherAllRole() {
+            return roleRepository.findAll();
+        }
+*/
+
 }
