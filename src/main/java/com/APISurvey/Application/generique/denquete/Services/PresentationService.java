@@ -18,7 +18,7 @@ public interface PresentationService {
     Presentation SupprimerPresentation(Integer id, Presentation presentation);
 
 
-    Presentation PartagerPresentation();
+    String PartagerPresentation(Integer id, String email, String socialNetwork) throws InstantiationException, IllegalAccessException;
 
 
 }

@@ -15,6 +15,9 @@ public class PresentationServiceImpl implements PresentationService {
     @Autowired
     PresentationRepos presentationRepos;
 
+    //@Autowired
+    //rmarkdown rMarkdownFile;
+
 
 
 
@@ -60,8 +63,41 @@ public class PresentationServiceImpl implements PresentationService {
     /**
      * @return
      */
+
     @Override
-    public Presentation PartagerPresentation() {
-        return null;
+    public String PartagerPresentation(Integer id, String email, String socialNetwork) throws InstantiationException, IllegalAccessException {
+        Presentation presentation = presentationRepos.findById(id).orElseThrow(() -> new RuntimeException("Presentation n'existe pas"));
+        //create a rmarkdown file from the presentation data
+        //rmarkdown rMarkdownFile = sendEmail(email, presentation);
+        //send the presentation to the email or social network
+        if(socialNetwork.equals("email")) {
+            //sendEmail(email, presentation);
+        } else if(socialNetwork.equals("facebook")) {
+//            shareOnFacebook(rMarkdownFile);
+        } else if(socialNetwork.equals("whatsapp")) {
+  //          shareOnWhatsapp(rMarkdownFile, email);
+        }
+
+        return "Enquete partager avec succés !";
+
     }
+
+   // private rmarkdown sendEmail(String email, Presentation) throws InstantiationException, IllegalAccessException {
+     //   return rmarkdown.class.newInstance();
+    //}
+
+
+//    private rmarkdown sendEmail(String email, rmarkdown rMarkdownFile) {
+//
+//        return rMarkdownFile;
+//    }
+
+/*    private void shareOnFacebook(File rMarkdownFile) {
+
+    }
+
+    private void shareOnWhatsapp(File rMarkdownFile, String phoneNumber) {
+
+    }*/
+
 }

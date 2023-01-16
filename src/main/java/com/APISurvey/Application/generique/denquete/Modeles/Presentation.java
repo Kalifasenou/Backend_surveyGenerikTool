@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 @AllArgsConstructor
@@ -39,4 +40,11 @@ public class Presentation {
     private Sondage sondages;
 
 
+    public String getTitle() {
+        return libelle;
+    }
+
+    public Resultat getContent() {
+        return getResultats();
+    }
 }
