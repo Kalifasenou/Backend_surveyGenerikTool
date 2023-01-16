@@ -78,4 +78,14 @@ public class SondageServiceImpl implements SondageService {
     public Sondage LancerSondage() {
         return null;
     }
+
+
+/*    @Override
+    public void addOption(Integer questionId, MultiValueOption option) {
+        Sondage sondage = sondageRepos.findById(questionId).get();
+        Question question = sondage.getQuestions().get(questionId);
+        question.addOption(option);
+        sondageRepos.save(sondage);
+    }*/
+
 }

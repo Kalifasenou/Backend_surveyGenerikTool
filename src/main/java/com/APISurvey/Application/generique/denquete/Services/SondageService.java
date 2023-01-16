@@ -20,4 +20,5 @@ public interface SondageService {
 
     Sondage LancerSondage() ;
 
+    //void addOption(Integer questionId, MultiValueOption option);
 }
