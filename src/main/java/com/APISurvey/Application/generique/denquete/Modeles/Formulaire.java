@@ -34,12 +34,25 @@ public class Formulaire {
     private List<Question> questions = new ArrayList<>();
 
 
+    @OneToOne
+    private Enquete enquete;
+
+
+
     @ManyToMany
     @JoinTable(
             name = "Sondage_forms",
             joinColumns = @JoinColumn(name = "sondage_id"),
             inverseJoinColumns = @JoinColumn(name = "forms_id"))
     Set<Sondage> sondages;
+
+    public void setEnquete(Enquete enquete) {
+        this.enquete = enquete;
+    }
+
+    public Enquete getEnquete() {
+        return enquete;
+    }
 
 
 
