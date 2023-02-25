@@ -29,4 +29,11 @@ public class Questionnaire {
 
     private String etatAvancement; // L'état d'avancement du questionnaire
 
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_questionnaire",
+            joinColumns = @JoinColumn(name = "questionnaire_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    List<User> utilisateur_id;
+
 }

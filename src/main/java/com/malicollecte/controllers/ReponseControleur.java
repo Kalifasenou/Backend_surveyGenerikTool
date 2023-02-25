@@ -1,8 +1,11 @@
 package com.malicollecte.controllers;
 
 import com.malicollecte.Services.ReponseService;
+import com.malicollecte.models.Question;
 import com.malicollecte.models.Reponse;
+import com.malicollecte.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,8 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/reponse")
 public class ReponseControleur {
-
-
         @Autowired
         private ReponseService reponseService;
 
@@ -20,12 +21,11 @@ public class ReponseControleur {
             return reponseService.AfficherReponses(id);
         }
 
-
         //@GetMapping("/afficher/user/{userId}")
         //public List<Reponse> getReponsesByUser(@PathVariable Long userId) {            return reponseService.AfficherTouteslesReponsesParUtilisateurs(userId);}
 
         @PostMapping
-        public Reponse createReponse(@RequestBody Reponse reponse) {
+        public ResponseEntity<?> createReponse(@RequestBody Reponse reponse) {
             return reponseService.AjouterReponse(reponse);
         }
 
@@ -40,6 +40,11 @@ public class ReponseControleur {
 
             return "Reponse supprimé";
         }
+
+        @PostMapping("/ajouterunereponseaunequestion/{user}/{question}")
+        public ResponseEntity<?> ajouterunereponseaunequestion(@PathVariable User user, @PathVariable Question question, @RequestBody Reponse reponse){
+            reponse.setUser(user);
+            reponse.setQuestion(question);
+            return ResponseEntity.ok(reponseService.AjouterReponse(reponse));
+        }
     }
-
-

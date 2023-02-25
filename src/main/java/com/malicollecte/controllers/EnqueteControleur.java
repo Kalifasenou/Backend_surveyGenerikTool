@@ -2,10 +2,13 @@ package com.malicollecte.controllers;
 
 import com.malicollecte.Image.SaveImage;
 import com.malicollecte.Services.EnqueteService;
+import com.malicollecte.Services.QuestionnaireService;
 import com.malicollecte.models.Enquete;
 import com.malicollecte.models.Questionnaire;
 import com.malicollecte.models.User;
+import com.malicollecte.payload.request.Repondant;
 import com.malicollecte.repository.EnqueteRepositorie;
+import com.malicollecte.repository.QuestionRepositorie;
 import com.malicollecte.repository.UserRepository;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +38,9 @@ public class EnqueteControleur {
     private EnqueteRepositorie enqueteRepositorie;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    QuestionnaireService questionnaireService;
 
 
     //@PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
@@ -141,6 +149,72 @@ public class EnqueteControleur {
    // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public ResponseEntity<List<Enquete>> getEnquetesType(@PathVariable String stype){
         return ResponseEntity.ok(enqueteService.AfficherparType(stype));
+    }
+    @PatchMapping("/assignerquestionadesusers/{questionnaire}")
+    public ResponseEntity<?> assignerQuestionADesUers(@PathVariable Questionnaire questionnaire, @RequestBody Repondant repondant){
+
+            List<User> users = userRepository.findByLocaliteInAndGenre(repondant.getLocalite(), repondant.getGenre());
+            List<User> usersRepondant = new ArrayList<>();
+            LocalDate currentDate = LocalDate.now();
+
+            if(repondant.getTranche().equals("0-5")){
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 0 && age < 5){
+                        usersRepondant.add(user);
+                    }
+                }
+            } else if (repondant.getTranche().equals("5-15")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 5 && age < 15){
+                        usersRepondant.add(user);
+                    }
+                }
+            } else if (repondant.getTranche().equals("5-20")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 5 && age < 20){
+                        usersRepondant.add(user);
+                    }
+                }
+            } else if (repondant.getTranche().equals("20-35")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 20 && age < 35){
+                        usersRepondant.add(user);
+                    }
+                }
+
+            } else if (repondant.getTranche().equals("35-55")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 35 && age < 55){
+                        usersRepondant.add(user);
+                    }
+                }
+
+            } else if (repondant.getTranche().equals("55-65")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 55 && age < 65){
+                        usersRepondant.add(user);
+                    }
+                }
+
+            }else {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 65){
+                        usersRepondant.add(user);
+                    }
+                }
+            }
+
+           //questionnaire.setUtilisateur_id(usersRepondant);
+            Questionnaire quest = new Questionnaire();
+            quest.setUtilisateur_id(usersRepondant);
+           return ResponseEntity.ok(questionnaireService.Modifier(questionnaire.getId(), quest));
     }
 }
 

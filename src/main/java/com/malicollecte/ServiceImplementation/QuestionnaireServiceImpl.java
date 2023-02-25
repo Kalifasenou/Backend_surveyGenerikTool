@@ -88,7 +88,10 @@ public class QuestionnaireServiceImpl  implements QuestionnaireService {
     @Override
     public Questionnaire Modifier(Long id, Questionnaire questionnaire) {
         return questionnaireRepositorie.findById(id).map(questionnaire1 -> {
-            questionnaire1.setQuestions(questionnaire.getQuestions());
+            if(questionnaire.getQuestions() != null)
+                questionnaire1.setQuestions(questionnaire.getQuestions());
+            if(questionnaire.getUtilisateur_id() != null)
+                questionnaire1.setUtilisateur_id(questionnaire.getUtilisateur_id());
             return questionnaireRepositorie.save(questionnaire1);
         }).orElseThrow(() -> new RuntimeException("Ne peut pas modifiée ce questionnaire" + id));
     }

@@ -1,6 +1,8 @@
 package com.malicollecte.repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Boolean existsByEmail(String email);
 
   User findByEmail(String email);
+  List<User> findByLocaliteInAndGenre(Set<String> localite, String genre);
+  User findByGenreAndLocalite(String genre, String localite);
 }

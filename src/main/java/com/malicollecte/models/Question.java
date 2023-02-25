@@ -25,4 +25,5 @@ public class Question {
     @JoinColumn(name = "questionnaire_id") // La clé étrangère vers le questionnaire
     @ManyToOne
     private Questionnaire questionnaire; // Le questionnaire associé à la question
+
 }

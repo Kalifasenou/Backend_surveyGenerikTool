@@ -34,6 +34,10 @@ public class Enquete {
     @JsonIgnore
     private User utilisateur; // L'utilisateur associé à l'enquête
 
+   @JsonIgnore
+    @OneToOne(mappedBy = "enquete")
+    private Questionnaire questionnaire;
+
     @OneToOne(orphanRemoval = true)
     @JsonIgnore
     @JoinTable(name = "enquete_resultat", // Le nom de la table d'association entre l'enquête et le résultat

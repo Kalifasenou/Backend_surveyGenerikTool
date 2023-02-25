@@ -4,6 +4,7 @@ import com.malicollecte.Services.ReponseService;
 import com.malicollecte.models.Reponse;
 import com.malicollecte.repository.ReponseRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -61,9 +62,8 @@ public class ReponseServiceimpl implements ReponseService {
 //    }
 //
     @Override
-    public Reponse AjouterReponse(Reponse reponse) {
-        reponseRepositorie.save(reponse);
-        return reponse;
+    public ResponseEntity<?> AjouterReponse(Reponse reponse) {
+        return ResponseEntity.ok( reponseRepositorie.save(reponse));
     }
 
     //    /**

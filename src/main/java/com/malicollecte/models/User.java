@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,17 +60,27 @@ public class User {
 
   private String organisation;
 
+  private LocalDate datedenaissance;
+
   //NotBlank
   private String genre;
 
-
-
-
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_roles", 
+  @JoinTable(name = "user_roles",
              joinColumns = @JoinColumn(name = "user_id"),
              inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
+
+//    @OneToMany(mappedBy = "utilisateur")
+//    @JsonIgnore
+//    private List<Enquete> enquetes;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_questionnaire",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "questionnaire_id"))
+    List<Questionnaire> questionnaire_id;
 
 
 
@@ -126,15 +137,6 @@ public class User {
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
   }
-
-
-  @OneToMany(mappedBy = "utilisateur")
-  @JsonIgnore
-  private List<Enquete> enquetes;
-
-  @ManyToMany()
-  @JsonIgnore
-  List<Questionnaire> questionnairess;
 
 
 }

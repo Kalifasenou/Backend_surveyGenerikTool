@@ -1,5 +1,6 @@
 package com.malicollecte.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +25,12 @@ public class Reponse {
 
 
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "question")
     private Question question; // La question à laquelle la réponse est associée
+
+    @JsonIgnore
+    @ManyToOne
+    private User user; //
 
 }

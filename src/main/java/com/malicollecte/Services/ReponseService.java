@@ -4,6 +4,7 @@ import com.malicollecte.models.Question;
 import com.malicollecte.models.Questionnaire;
 import com.malicollecte.models.Reponse;
 import com.malicollecte.models.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface ReponseService {
 
    // List<Reponse> getUnansweredQuestionsByUserAndQuestionnaire(User user, Questionnaire questionnaire);
 
-    Reponse AjouterReponse(Reponse Reponse);
+    ResponseEntity <?> AjouterReponse(Reponse Reponse);
 
     Reponse AfficherReponses(Long id);
 
