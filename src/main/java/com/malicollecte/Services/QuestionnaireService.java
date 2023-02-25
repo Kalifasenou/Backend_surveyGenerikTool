@@ -2,7 +2,8 @@ package com.malicollecte.Services;
 
 import com.malicollecte.models.Question;
 import com.malicollecte.models.Questionnaire;
-import org.springframework.stereotype.Service;
+import com.malicollecte.payload.response.MessageResponse;
+import com.malicollecte.payload.response.Reponse;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface QuestionnaireService {
 
     Questionnaire Modifier(Long id, Questionnaire questionnaireDetails);
 
-    String AjouterQuestion (Long id, Question question);
+    Reponse AjouterQuestion (Long id, Question question);
 
     String SupprimerQuestion (Long id);
 

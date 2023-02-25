@@ -13,4 +13,6 @@ public interface QuestionRepositorie extends JpaRepository<Question, Long> {
 
     @Query("SELECT q FROM Question q WHERE q.questionnaire.id = :questionnaireId")
     List<Question> getQuestionsByQuestionnaireId(@Param("questionnaireId") Long questionnaireId);
+
+    boolean existsByIntitule(String intitule);
 }

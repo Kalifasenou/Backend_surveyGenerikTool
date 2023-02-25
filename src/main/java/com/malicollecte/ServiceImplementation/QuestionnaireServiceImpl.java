@@ -5,11 +5,12 @@ import com.malicollecte.Services.QuestionnaireService;
 import com.malicollecte.models.Question;
 import com.malicollecte.models.Questionnaire;
 import com.malicollecte.models.User;
+import com.malicollecte.payload.response.MessageResponse;
+import com.malicollecte.payload.response.Reponse;
 import com.malicollecte.repository.EnqueteRepositorie;
 import com.malicollecte.repository.QuestionRepositorie;
 import com.malicollecte.repository.QuestionnaireRepositorie;
 import com.malicollecte.repository.UserRepository;
-import net.bytebuddy.implementation.bytecode.assign.TypeCasting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,18 +97,21 @@ public class QuestionnaireServiceImpl  implements QuestionnaireService {
       //  return questionnaireRepositorie.findByStatus(status); }
 
 
-    public String AjouterQuestion(Long id, Question question) {
+    public Reponse AjouterQuestion(Long id, Question question) {
         Questionnaire questionnaire = questionnaireRepositorie.findById(id).orElse(null);
         if(questionnaire == null) {
             throw new IllegalArgumentException("Aucun questionnaire trouver avec l'id : " + id);
         } else {
-        question.setQuestionnaire(questionnaire);
-        //questionService.CreerUneQuestion(question.getIntitule(), question);
-        questionRepositorie.save(question);
-        questionnaire.setQuestions(questionnaire.getQuestions());
-        questionnaireRepositorie.save(questionnaire);
+            if (!questionRepositorie.existsByIntitule(question.getIntitule())) {
+                question.setQuestionnaire(questionnaire);
+                //questionService.CreerUneQuestion(question.getIntitule(), question);
+                questionRepositorie.save(question);
+                questionnaire.setQuestions(questionnaire.getQuestions());
+                questionnaireRepositorie.save(questionnaire);
+                return new Reponse("Question ajouté", 1);
+            } else return new Reponse("Cette question exist déjà !", 0);
         }
-        return "Question ajouté";
+
     }
 
     /**

@@ -3,8 +3,11 @@ package com.malicollecte.payload.response;
 public class MessageResponse {
 	private String message;
 
-	public MessageResponse(String message) {
+	private int statut;
+
+	public MessageResponse(String message, int statut) {
 	    this.message = message;
+		this.statut = statut;
 	  }
 
 	public String getMessage() {

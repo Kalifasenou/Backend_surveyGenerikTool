@@ -78,8 +78,10 @@ public class ReponseServiceimpl implements ReponseService {
     @Override
     public Reponse ModifierReponse(Long id, Reponse reponse) {
         reponseRepositorie.findById(id).map(reponse1 -> {
-            reponse1.setType(reponse.getType());
-            reponse1.setMessage(reponse.getMessage());
+            reponse1.setTypechiffre(reponse.getTypechiffre());
+            reponse1.setTypetexte(reponse.getTypetexte());
+            reponse1.setTypechoixunique(reponse.getTypechoixunique());
+            reponse1.setTypechoixmultiple(reponse.getTypechoixmultiple());
 
             return reponseRepositorie.save(reponse1);
         }).orElseThrow(() -> new RuntimeException("Ne peut pas modifier cette reponse"));

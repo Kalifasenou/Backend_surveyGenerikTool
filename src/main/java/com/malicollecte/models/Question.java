@@ -17,10 +17,12 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String intitule;
-    private String type;
-    @JoinColumn(name = "questionnaire_id")
+    private Long id; // L'identifiant de la question
+
+    private String intitule; // L'intitulé de la question
+    private String type; // Le type de la question
+
+    @JoinColumn(name = "questionnaire_id") // La clé étrangère vers le questionnaire
     @ManyToOne
-    private Questionnaire questionnaire;
+    private Questionnaire questionnaire; // Le questionnaire associé à la question
 }

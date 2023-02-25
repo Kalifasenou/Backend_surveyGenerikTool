@@ -12,12 +12,19 @@ public class Reponse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // L'identifiant de la réponse
 
-    private String message;
+    private String typetexte; // reponse de type texte
 
-    private String type;
+    private String typechiffre; // reponse de type chiffre
+
+    private String typechoixunique; // reponse de type choix unique
+
+    private String typechoixmultiple; // reponse de type choix multiple
+
+
 
     @OneToOne
-    private Question question;
+    private Question question; // La question à laquelle la réponse est associée
+
 }

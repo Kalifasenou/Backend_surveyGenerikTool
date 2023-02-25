@@ -35,7 +35,7 @@ public class QuestionnaireControleur {
     private EnqueteRepositorie enqueteRepositorie;
 
     @GetMapping("/afficher/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
+  //  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public Questionnaire afficherQuestionnaire(@PathVariable Long id){
         return questionnaireService.AfficherUn(id);
     }
@@ -47,7 +47,7 @@ public class QuestionnaireControleur {
     }
 
     @GetMapping("/toutafficher")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
+   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public List<Questionnaire> toutafficher(){
         return questionnaireService.ToutAfficher();
     }
@@ -65,13 +65,14 @@ public class QuestionnaireControleur {
     }
 
     @PostMapping("/ajoutquestion/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
-    public String AjouterQuestion(@PathVariable Long id, @RequestBody Question question){
-        return questionnaireService.AjouterQuestion(id, question);
+   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
+    public ResponseEntity<?> AjouterQuestion(@PathVariable Long id, @RequestBody Question question){
+
+        return  ResponseEntity.ok(questionnaireService.AjouterQuestion(id, question));
     }
 
     @GetMapping("/affichertoutquestions")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
+   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public List<Question> questions(){
         return questionnaireService.AfficherTouteQuestion();
     }
@@ -103,7 +104,7 @@ public class QuestionnaireControleur {
     @GetMapping("/afficherquestionnaire/{enqueteId}")
     public ResponseEntity<Questionnaire> getQuestionnaireByEnqueteId(@PathVariable Long enqueteId) {
         Optional<Questionnaire> questionnaire = questionnaireRepositorie.findFirstByEnqueteId(enqueteId);
-        return questionnaire.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+            return questionnaire.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
 

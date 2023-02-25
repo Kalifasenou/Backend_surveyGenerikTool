@@ -14,20 +14,19 @@ public class Questionnaire {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id; // L'identifiant du questionnaire
 
+    private String libellequestionnaire; // Le libellé du questionnaire
 
-    private String libellequestionnaire;
-
+    private int nombrequestions;
 
     @OneToOne
-    private Enquete enquete;
+    private Enquete enquete; // L'enquête associée au questionnaire
 
     @OneToMany
     @JsonIgnore
-    private List<Question> questions;
+    private List<Question> questions; // La liste des questions du questionnaire
 
-    private String etatAvancement;
-
+    private String etatAvancement; // L'état d'avancement du questionnaire
 
 }
