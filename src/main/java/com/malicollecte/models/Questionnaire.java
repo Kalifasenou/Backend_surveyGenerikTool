@@ -21,10 +21,9 @@ public class Questionnaire {
     private int nombrequestions;
 
     @OneToOne
-    private Enquete enquete; // L'enquête associée au questionnaire
+    private Enquete enquete;// L'enquête associée au questionnaire
 
     @OneToMany
-    @JsonIgnore
     private List<Question> questions; // La liste des questions du questionnaire
 
     private String etatAvancement; // L'état d'avancement du questionnaire

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reponse")
+@CrossOrigin(origins = "http://localhost:8100", maxAge = 3600, allowCredentials="true")
 public class ReponseControleur {
         @Autowired
         private ReponseService reponseService;
@@ -29,12 +30,12 @@ public class ReponseControleur {
             return reponseService.AjouterReponse(reponse);
         }
 
-        @PutMapping("/{ReponseId}")
+        @PutMapping("modifier/{ReponseId}")
         public Reponse updateReponse(@PathVariable Long ReponseId, @RequestBody Reponse Reponse) {
             return reponseService.ModifierReponse(ReponseId, Reponse);
         }
 
-        @DeleteMapping("/{ReponseId}")
+        @DeleteMapping("supprimer/{ReponseId}")
         public String deleteReponse(@PathVariable Long id) {
             reponseService.SupprimerReponse(id);
 

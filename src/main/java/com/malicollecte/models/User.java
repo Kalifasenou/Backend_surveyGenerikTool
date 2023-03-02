@@ -1,10 +1,7 @@
 package com.malicollecte.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -24,6 +21,7 @@ import javax.validation.constraints.Size;
            @UniqueConstraint(columnNames = "email")
        })
 @NoArgsConstructor
+@ToString
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

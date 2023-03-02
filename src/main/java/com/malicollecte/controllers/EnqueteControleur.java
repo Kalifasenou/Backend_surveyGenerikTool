@@ -3,13 +3,9 @@ package com.malicollecte.controllers;
 import com.malicollecte.Image.SaveImage;
 import com.malicollecte.Services.EnqueteService;
 import com.malicollecte.Services.QuestionnaireService;
-import com.malicollecte.models.Enquete;
-import com.malicollecte.models.Questionnaire;
-import com.malicollecte.models.User;
+import com.malicollecte.models.*;
 import com.malicollecte.payload.request.Repondant;
-import com.malicollecte.repository.EnqueteRepositorie;
-import com.malicollecte.repository.QuestionRepositorie;
-import com.malicollecte.repository.UserRepository;
+import com.malicollecte.repository.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +37,15 @@ public class EnqueteControleur {
 
     @Autowired
     QuestionnaireService questionnaireService;
+
+    @Autowired
+    QuestionnaireRepositorie questionnaireRepositorie;
+
+    @Autowired
+    User_questionnaireRepository user_questionnaireRepository;
+
+    @Autowired
+    QuestionRepositorie  questionRepositorie;
 
 
     //@PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_ADMIN')")
@@ -171,33 +176,33 @@ public class EnqueteControleur {
                         usersRepondant.add(user);
                     }
                 }
-            } else if (repondant.getTranche().equals("5-20")) {
+            } else if (repondant.getTranche().equals("15-25")) {
                 for(User user : users){
                     int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
-                    if(age >= 5 && age < 20){
+                    if(age >= 15 && age < 25){
                         usersRepondant.add(user);
                     }
                 }
-            } else if (repondant.getTranche().equals("20-35")) {
+            } else if (repondant.getTranche().equals("25-35")) {
                 for(User user : users){
                     int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
-                    if(age >= 20 && age < 35){
-                        usersRepondant.add(user);
-                    }
-                }
-
-            } else if (repondant.getTranche().equals("35-55")) {
-                for(User user : users){
-                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
-                    if(age >= 35 && age < 55){
+                    if(age >= 25 && age < 35){
                         usersRepondant.add(user);
                     }
                 }
 
-            } else if (repondant.getTranche().equals("55-65")) {
+            } else if (repondant.getTranche().equals("35-50")) {
                 for(User user : users){
                     int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
-                    if(age >= 55 && age < 65){
+                    if(age >= 35 && age < 50){
+                        usersRepondant.add(user);
+                    }
+                }
+
+            } else if (repondant.getTranche().equals("50-65")) {
+                for(User user : users){
+                    int age = Period.between(user.getDatedenaissance(), currentDate).getYears();
+                    if(age >= 50 && age < 65){
                         usersRepondant.add(user);
                     }
                 }
@@ -214,7 +219,66 @@ public class EnqueteControleur {
            //questionnaire.setUtilisateur_id(usersRepondant);
             Questionnaire quest = new Questionnaire();
             quest.setUtilisateur_id(usersRepondant);
-           return ResponseEntity.ok(questionnaireService.Modifier(questionnaire.getId(), quest));
+
+        List<User_questionnaire> userQuestionnaire = new ArrayList<>();
+       int i = 0;
+       System.out.println(usersRepondant);
+        for (User user: usersRepondant){
+            User_questionnaire userQuest = new User_questionnaire();
+            userQuest.setUserid(user);
+            userQuest.setQuestionnaireid(questionnaire);
+            userQuest.setStatus(EStatusEnquete.ENCOURS);
+            userQuestionnaire.add(userQuest);
+//            userQuestionnaire.add(userQuest);
+//            userQuestionnaire.get(i).setUser_id(user);
+//            userQuestionnaire.get(i).setQuestionnaire_id(questionnaire);
+//            userQuestionnaire.get(i).setStatus(EStatusEnquete.ENCOURS);
+//            i++;
+        }
+          // return ResponseEntity.ok(questionnaireService.Modifier(questionnaire.getId(), quest));
+        return ResponseEntity.ok(user_questionnaireRepository.saveAll(userQuestionnaire));
     }
+
+
+    @GetMapping("/recuperlesenquentesdunutilisateur/{user}")
+    public ResponseEntity<?> recuperLesEnquentesDunUtilisateur(@PathVariable User user){
+        List<User_questionnaire> userQuestionnaireList = user_questionnaireRepository.findByUseridAndStatus(user, EStatusEnquete.ENCOURS);
+
+        List<Enquete> enquetes = new ArrayList<>();
+
+        for (User_questionnaire uq : userQuestionnaireList){
+            enquetes.add(uq.getQuestionnaireid().getEnquete());
+        }
+
+        return ResponseEntity.ok(enquetes);
+    }
+
+    @GetMapping("/recuprerLesQuestionsParEnquete/{enquete}")
+    public ResponseEntity<?> recuprerLesQuestionsParEnquete(@PathVariable Enquete enquete){
+            Questionnaire questionnaire1= questionnaireRepositorie.recupererQuestionnaire(enquete.getId());
+
+        return ResponseEntity.ok(questionRepositorie.getQuestionsByQuestionnaireId(questionnaire1.getId()));
+    }
+
+//    @GetMapping("/recuprerLesQuestionsParEnquete/{enqueteId}")
+//    public ResponseEntity<?> recuprerLesQuestionsParEnquete(@PathVariable Long enqueteId){
+//
+//        Enquete enquete = enqueteRepositorie.findById(enqueteId).get();
+//        if (enquete == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        Questionnaire questionnaire = enquete.getQuestionnaire();
+//        if (questionnaire == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        List<Question> questions = questionnaire.getQuestions();
+//        return ResponseEntity.ok(questions);
+//    }
+
+
 }
+
+
 

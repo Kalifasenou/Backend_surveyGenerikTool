@@ -15,11 +15,11 @@ public class User_questionnaire {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User userid;
 
     @ManyToOne
     @JoinColumn(name = "questionnaire_id")
-    private Questionnaire questionnaire_id;
+    private Questionnaire questionnaireid;
 
     @Enumerated(EnumType.STRING)
     private EStatusEnquete status;
