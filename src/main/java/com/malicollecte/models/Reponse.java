@@ -17,9 +17,9 @@ public class Reponse {
 
     private String typetexte; // reponse de type texte
 
-    private String typechiffre; // reponse de type chiffre
+    private int typechiffre; // reponse de type chiffre
 
-    private String typechoixunique; // reponse de type choix unique
+    private Boolean typechoixunique; // reponse de type choix unique
 
     private String typechoixmultiple; // reponse de type choix multiple
 

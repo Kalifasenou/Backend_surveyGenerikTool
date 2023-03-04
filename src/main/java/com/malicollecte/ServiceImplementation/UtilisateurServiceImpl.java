@@ -1,10 +1,10 @@
 package com.malicollecte.ServiceImplementation;
 
 import com.malicollecte.Services.UtilisateurServices;
+import com.malicollecte.models.Role;
 import com.malicollecte.models.User;
 import com.malicollecte.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,14 +87,11 @@ public class UtilisateurServiceImpl implements UtilisateurServices {
     }
 
     @Override
-    public String ModifierRole(Long id, Set role) {
-        User role1 = userRepository.findById(id).orElseThrow(null);
-        if (role1 != null) {
-            role1.setRoles(role);
-            userRepository.save(role1);
-            return "Role changé avec succés !";
-        }
-        return "Utilisateur introuvable !";
+    public User ModifierRole(User user, Long idUser) {
+            return userRepository.findById(idUser).map(user1 -> {
+                user1.setRoles(user.getRoles());
+                return userRepository.save(user);
+            }).orElseThrow(()-> new RuntimeException("Ce rôle a été modifier avec succés !"));
     }
 
     //Methode de modication d'adresse mail

@@ -1,7 +1,10 @@
 package com.malicollecte.controllers;
 
+import com.malicollecte.ServiceImplementation.UtilisateurServiceImpl;
 import com.malicollecte.Services.UtilisateurServices;
+import com.malicollecte.models.Role;
 import com.malicollecte.models.User;
+import com.malicollecte.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,12 @@ public class UserControleur {
 
     @Autowired
     UtilisateurServices utilisateurServices;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    UtilisateurServiceImpl utilisateurServiceImpl;
 
 
     @GetMapping("/afficher/{email}")
@@ -47,9 +56,14 @@ public class UserControleur {
         return utilisateurServices.ModifierEmail(id, email);
     }
 
-    @PostMapping("/modifier/{id}/{role}")
-    public String ModifierRole(@PathVariable("id") Long id, @PathVariable Set<String> role){
-        return utilisateurServices.ModifierRole(id, role);
+    @PostMapping("/modifierRole/{id}")
+    public User ModifierRole(@PathVariable Long id, @RequestBody User user) {
+        User user1 = new User();
+        user1.setRoles(user.getRoles());
+
+        userRepository.save(user1);
+
+        return utilisateurServiceImpl.ModifierRole(user1, id);
     }
 
     @PutMapping("/modifierOrganisation/{id}/{organisation}")

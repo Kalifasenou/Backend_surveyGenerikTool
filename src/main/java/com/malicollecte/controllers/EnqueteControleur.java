@@ -81,7 +81,7 @@ public class EnqueteControleur {
             //enquete1.setEtat(etat);
 
             ResponseEntity.ok(enqueteService.Creer(enquete1));
-            return "Enquête " + enquete1.getLibelle() + "créer  avec succès";
+            return "Enquête " + enquete1.getLibelle() + " créer  avec succès";
         }
         return "Cette enquête " + enquete1.getLibelle() + " existe dêjà !";
     }

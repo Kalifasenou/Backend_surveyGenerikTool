@@ -1,5 +1,6 @@
 package com.malicollecte.Services;
 
+import com.malicollecte.models.Role;
 import com.malicollecte.models.User;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface UtilisateurServices {
     public String ModifierMotDePasse(Long id, String password);
 
     //Methodde de modification du role de l'utilisateur
-    public String ModifierRole(Long id, Set role);
+    public User ModifierRole(User user, Long idUser);
 
     // Méthode pour modifier l'email d'un utilisateur
     public String ModifierEmail(Long id, String email);

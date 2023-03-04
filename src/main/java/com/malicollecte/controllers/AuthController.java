@@ -89,11 +89,11 @@ public class AuthController {
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-      return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!", 1));
+      return ResponseEntity.badRequest().body(new MessageResponse("Ce nom d'utilisateur existe deja !", 1));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-      return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!", 1));
+      return ResponseEntity.badRequest().body(new MessageResponse("Erreur : Cet email existe a deja été utilisé !!", 1));
     }
 
     // Creation d'un nouveau compte utilisateur
